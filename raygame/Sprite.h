@@ -8,15 +8,15 @@ public:
     Sprite() {}
 
     /// <summary>
-    /// Loads the given texture
+    /// Loads the given Texture
     /// </summary>
-    /// <param name="texture">Sets the sprites image to be the given texture</param>
+    /// <param name="texture">Sets the Sprites image to be the given Texture</param>
     Sprite(Texture2D* texture);
 
     /// <summary>
-    /// Loads the texture at the given path
+    /// Loads the Texture at the given path
     /// </summary>
-    /// <param name="path">The file path of the texture</param>
+    /// <param name="path">The file path of the Texture</param>
     Sprite(const char* path);
 
     /// <summary>
@@ -40,8 +40,7 @@ public:
     void setHeight(int value);
 
     /// <summary>
-    /// Draws the sprite using the rotation, translation, and scale
-    /// of the given transform
+    /// Draws the Sprite using the rotation, translation, and scale of the given transform
     /// </summary>
     /// <param name="transform"></param>
     void draw(MathLibrary::Matrix3 transform);
@@ -49,4 +48,3 @@ public:
 private:
     Texture2D* m_texture;
 };
-
