@@ -49,13 +49,9 @@ MathLibrary::Vector2 Actor::getWorldPosition()
 void Actor::setWorldPostion(MathLibrary::Vector2 value)
 {
     if (m_parent)
-    {
         setLocalPosition(value + m_parent->getWorldPosition());
-    }
     else
-    {
         setLocalPosition(value);
-    }
 }
 
 MathLibrary::Vector2 Actor::getLocalPosition()
@@ -95,54 +91,38 @@ void Actor::start()
 
 void Actor::addChild(Actor* child)
 {
-    //Create a new array with a size one greater than our old array
     Actor** appendedArray = new Actor*[m_childCount + 1];
-    //Copy the values from the old array to the new array
     for (int i = 0; i < m_childCount; i++)
-    {
         appendedArray[i] = m_children[i];
-    }
 
     child->m_parent = this;
 
-    //Set the last value in the new array to be the actor we want to add
     appendedArray[m_childCount] = child;
-    //Set old array to hold the values of the new array
     m_children = appendedArray;
     m_childCount++;
 }
 
 bool Actor::removeChild(int index)
 {
-    //Check to see if the index is outside the bounds of our array
     if (index < 0 || index >= m_childCount)
-    {
         return false;
-    }
 
     bool actorRemoved = false;
 
-    //Create a new array with a size one less than our old array 
-    Actor** newArray = new Actor * [m_childCount + 1];
-    //Create variable to access tempArray index
+    Actor** newArray = new Actor * [m_childCount - 1];
     int j = 0;
-    //Copy values from the old array to the new array
+    //Copy all children except for the Actor at the passed in index into newArray
     for (int i = 0; i < m_childCount; i++)
     {
-        //If the current index is not the index that needs to be removed,
-        //add the value into the old array and increment j
         if (i != index)
         {
             newArray[j] = m_children[i];
             j++;
         }
         else
-        {
             actorRemoved = true;
-        }
     }
     m_children[index]->m_parent = nullptr;
-    //Set the old array to be the tempArray
     m_children = newArray;
     m_childCount--;
     return actorRemoved;
@@ -150,18 +130,13 @@ bool Actor::removeChild(int index)
 
 bool Actor::removeChild(Actor* child)
 {
-    //Check to see if the actor was null
     if (!child)
-    {
         return false;
-    }
 
     bool actorRemoved = false;
-    //Create a new array with a size one less than our old array
-    Actor** newArray = new Actor * [m_childCount + 1];
-    //Create variable to access tempArray index
+    Actor** newArray = new Actor * [m_childCount - 1];
     int j = 0;
-    //Copy values from the old array to the new array
+    //Copy all children except for the passed in Actor into newArray
     for (int i = 0; i < m_childCount; i++)
     {
         if (child != m_children[i])
@@ -170,15 +145,11 @@ bool Actor::removeChild(Actor* child)
             j++;
         }
         else
-        {
             actorRemoved = true;
-        }
     }
     child->m_parent = nullptr;
-    //Set the old array to the new array
     m_children = newArray;
     m_childCount--;
-    //Return whether or not the removal was successful
     return actorRemoved;
 }
 
@@ -204,10 +175,10 @@ void Actor::rotate(float radians)
 
 void Actor::lookAt(MathLibrary::Vector2 position)
 {
-    //Find the direction that the actor should look in
+    //Find the direction that the Actor should look in
     MathLibrary::Vector2 direction = (position - getWorldPosition()).getNormalized();
     
-    //Use the dotproduct to find the angle the actor needs to rotate
+    //Use the dotproduct to find the angle the Actor needs to rotate
     float dotProd = MathLibrary::Vector2::dotProduct(getForward(), direction);
     if (abs(dotProd) > 1)
         return;
@@ -247,21 +218,19 @@ void Actor::update(float deltaTime)
     if (m_velocity.getMagnitude() > m_maxSpeed)
         m_velocity = m_velocity.getNormalized() * m_maxSpeed;
 
-    //Increase position by the current velocity
     setLocalPosition(m_velocity * deltaTime);
 }
 
 void Actor::draw()
 {
     DrawCircle(getWorldPosition().x * 32, getWorldPosition().y * 32, 50, BLUE);
-    //Draws the actor and a line indicating it facing to the raylib window
+    //Draws the Actor and a line indicating it facing to the raylib window
     DrawLine(
         (int)(getWorldPosition().x * 32),
         (int)(getWorldPosition().y * 32),
         (int)((getWorldPosition().x + getForward().x) * 32),
         (int)((getWorldPosition().y + getForward().y) * 32),
-        WHITE
-    );
+        WHITE);
 
     if (m_sprite)
         m_sprite->draw(*m_globalTransform);
@@ -294,7 +263,5 @@ void Actor::updateGlobalTransform()
         *m_globalTransform = *m_localTransform;
 
     for (int i = 0; i < m_childCount; i++)
-    {
         m_children[i]->updateGlobalTransform();
-    }
 }
