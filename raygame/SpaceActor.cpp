@@ -17,3 +17,11 @@ void SpaceActor::takeDamage(float damageVal)
 {
 	m_health -= damageVal;
 }
+
+void SpaceActor::fire()
+{
+    if (RAYLIB_H::GetTime() > (double)m_lastFireTime + (double)m_fireDelay)
+    {
+        m_lastFireTime = RAYLIB_H::GetTime();
+    }
+}
