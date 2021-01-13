@@ -1,21 +1,27 @@
 #include "SpaceActor.h"
+#include <raylib.h>
 
-SpaceActor::SpaceActor(float health, float x, float y, float collisionRadius, char icon, float maxSpeed) : Actor(x, y, collisionRadius, icon, maxSpeed)
+SpaceActor::SpaceActor(float x, float y, float collisionRadius, Sprite* sprite, float maxSpeed, float health, float coolDown) : Actor(x, y, collisionRadius, sprite, maxSpeed)
 {
-    *m_health = health;
+    m_health = health;
+    m_fireDelay = coolDown;
 }
 
-SpaceActor::SpaceActor(float health, float x, float y, float collisionRadius, Sprite* sprite, float maxSpeed) : Actor(x, y, collisionRadius, sprite, maxSpeed)
+SpaceActor::SpaceActor(float x, float y, float collisionRadius, const char* spriteFilePath, float maxSpeed, float health, float coolDown) : Actor(x, y, collisionRadius, spriteFilePath, maxSpeed)
 {
-    *m_health = health;
-}
-
-SpaceActor::SpaceActor(float health, float x, float y, float collisionRadius, const char* spriteFilePath, float maxSpeed) : Actor(x, y, collisionRadius, spriteFilePath, maxSpeed)
-{
-    *m_health = health;
+    m_health = health;
+    m_fireDelay = coolDown;
 }
 
 void SpaceActor::takeDamage(float damageVal)
 {
-	*m_health -= damageVal;
+	m_health -= damageVal;
+}
+
+void SpaceActor::fire()
+{
+    if (RAYLIB_H::GetTime() > (double)m_lastFireTime + (double)m_fireDelay)
+    {
+        m_lastFireTime = RAYLIB_H::GetTime();
+    }
 }
