@@ -218,7 +218,7 @@ void Actor::update(float deltaTime)
     if (m_velocity.getMagnitude() > m_maxSpeed)
         m_velocity = m_velocity.getNormalized() * m_maxSpeed;
 
-    setLocalPosition(m_velocity * deltaTime);
+    setLocalPosition(getLocalPosition() + m_velocity * deltaTime);
 }
 
 void Actor::draw()
