@@ -29,7 +29,9 @@ public:
     void takeDamage(float damageVal);
 
     float getHealth() { return m_health; }
+    float getFireDelay() { return m_fireDelay; }
     void setSpeed(float speed) { m_speed = speed; }
+    void setFireDelay(float delay) { m_fireDelay = delay; }
 
 protected:
     /// <summary>
