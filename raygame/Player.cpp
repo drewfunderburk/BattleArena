@@ -2,14 +2,14 @@
 #include <raylib.h>
 #include "Actor.h"
 
-Player::Player(MathLibrary::Vector2 position, float rotation)
+Player::Player(MathLibrary::Vector2 position, float rotation) : SpaceActor(position.x, position.y, 10, "/Images/Player.png", 10, 100, 1)
 {
-
+	m_boostAmount = 50;
 }
 
-Player::Player(float x, float y, float rotation)
+Player::Player(float x, float y, float rotation) : SpaceActor(x, y, 10, "/Images/Player.png", 10, 100, 1)
 {
-
+	m_boostAmount = 50;
 }
 
 void Player::boost(float value)
@@ -29,6 +29,9 @@ void Player::update(float deltaTime)
 		SpaceActor::fire();
 
 	m_acceleration = direction * m_maxSpeed;
+
+	// Look at mouse cursor
+	SpaceActor::lookAt(MathLibrary::Vector2(RAYLIB_H::GetMousePosition().x, RAYLIB_H::GetMousePosition().y));
 
 	// Call super update
 	SpaceActor::Actor::update(deltaTime);
