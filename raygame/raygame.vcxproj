@@ -150,6 +150,7 @@
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SpaceActor.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="Actor.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SpaceActor.h" />
     <ClInclude Include="Sprite.h" />
