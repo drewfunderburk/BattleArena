@@ -30,11 +30,11 @@ public:
     SpaceActor(float health, float x, float y, float collisionRadius, const char* spriteFilePath, float maxSpeed);
 
     /// <summary>
-    /// 
+    /// Subtracts the passed in float from m_health
     /// </summary>
     /// <param name="damageVal">The amount being taken from m_health</param>
     void takeDamage(float damageVal);
 
 private:
-    float* m_health;
+    float m_health = 10;
 };
