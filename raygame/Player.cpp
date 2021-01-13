@@ -31,5 +31,5 @@ void Player::update(float deltaTime)
 	m_acceleration = direction * m_maxSpeed;
 
 	// Call super update
-	SpaceActor::Actor::update(deltaTime);
+	SpaceActor::update(deltaTime);
 }

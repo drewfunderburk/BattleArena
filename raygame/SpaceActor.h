@@ -22,6 +22,8 @@ public:
     /// <param name="maxSpeed">The largest the magnitude of the actors velocity can be.</param>
     SpaceActor(float x, float y, float collisionRadius, const char* spriteFilePath, float maxSpeed, float health, float fireDelay);
 
+    void update(float deltaTime);
+
     /// <summary>
     /// Subtracts the passed in float from m_health
     /// </summary>
