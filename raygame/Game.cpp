@@ -1,5 +1,8 @@
 #include "Game.h"
 #include "raylib.h"
+#include "Player.h"
+#include "Bullet.h"
+#include "Enemy.h"
 
 bool Game::m_gameOver = false;
 Scene** Game::m_scenes = new Scene*;
@@ -28,15 +31,30 @@ Actor::~Actor()
 
 void Game::start()
 {
+	// Init window
 	int screenWidth = 1024;
 	int screenHeight = 760;
 
-	InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
+	InitWindow(screenWidth, screenHeight, "Shield Bash");
+	// Init Camera
 	m_camera->offset = { (float)screenWidth / 2, (float)screenHeight / 2 };
 	m_camera->target = { (float)screenWidth / 2, (float)screenHeight / 2 };
 	m_camera->zoom = 1;
 
 	SetTargetFPS(60);
+
+	// Init new scene
+	Scene* scene1 = new Scene();
+	addScene(scene1);
+
+	Player* player = new Player(0, 0, 0);
+	scene1->addActor(player);
+
+	Bullet* bullet = new Bullet(0, 5, 1, '0', 3);
+	scene1->addActor(bullet);
+
+	Enemy* enemy = new Enemy(2, 2, 1, "/Images/Player.png", 1, 1, 1);
+	scene1->addActor(enemy);
 }
 
 void Game::update(float deltaTime)
@@ -106,7 +124,7 @@ int Game::addScene(Scene* scene)
 	if (!scene)
 		return -1;
 
-	Scene** tempArray = new Scene*[m_sceneCount - 1];
+	Scene** tempArray = new Scene*[m_sceneCount + 1];
 
 	for (int i = 0; i < m_sceneCount; i++)
 		tempArray[i] = m_scenes[i];

@@ -2,14 +2,14 @@
 #include <raylib.h>
 #include "Actor.h"
 
-Player::Player(MathLibrary::Vector2 position, float rotation)
+Player::Player(MathLibrary::Vector2 position, float rotation) : SpaceActor(position.x, position.y, 10, "/Images/Player.png", 10, 100, 1)
 {
-
+	m_boostAmount = 50;
 }
 
-Player::Player(float x, float y, float rotation)
+Player::Player(float x, float y, float rotation) : SpaceActor(x, y, 10, "/Images/Player.png", 10, 100, 1)
 {
-
+	m_boostAmount = 50;
 }
 
 void Player::boost(float value)

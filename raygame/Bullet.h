@@ -1,7 +1,7 @@
 #pragma once
 #include "Actor.h"
 
-class Bullet : Actor
+class Bullet : public Actor
 {
 public:
 	Bullet() {}
