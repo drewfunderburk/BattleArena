@@ -37,4 +37,5 @@ private:
 private:
     float m_health = 10;
     float m_fireDelay = 1;
+    float m_lastFireTime = 0;
 };

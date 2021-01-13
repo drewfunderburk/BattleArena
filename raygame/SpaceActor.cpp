@@ -1,5 +1,5 @@
 #include "SpaceActor.h"
-
+#include <raylib.h>
 
 SpaceActor::SpaceActor(float x, float y, float collisionRadius, Sprite* sprite, float maxSpeed, float health, float coolDown) : Actor(x, y, collisionRadius, sprite, maxSpeed)
 {
@@ -20,4 +20,9 @@ void SpaceActor::takeDamage(float damageVal)
 
 void SpaceActor::fire()
 {
+    if (RAYLIB_H::GetTime() > (double)m_lastFireTime + (double)m_fireDelay)
+    {
+        m_lastFireTime = RAYLIB_H::GetTime();
+        // Spawn a bullet
+    }
 }
