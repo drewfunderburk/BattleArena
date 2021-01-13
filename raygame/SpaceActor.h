@@ -32,7 +32,7 @@ private:
     /// <summary>
     /// Will create a Bullet
     /// </summary>
-    void fire();
+    virtual void fire();
 
 private:
     float m_health = 10;
