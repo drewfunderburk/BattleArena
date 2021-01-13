@@ -28,7 +28,10 @@ public:
     /// <param name="damageVal">The amount being taken from m_health</param>
     void takeDamage(float damageVal);
 
-private:
+    float getHealth() { return m_health; }
+    void setSpeed(float speed) { m_speed = speed; }
+
+protected:
     /// <summary>
     /// Will create a Bullet
     /// </summary>
@@ -38,4 +41,5 @@ private:
     float m_health = 10;
     float m_fireDelay = 1;
     float m_lastFireTime = 0;
+    float m_speed = 10;
 };
