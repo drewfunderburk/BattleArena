@@ -28,6 +28,8 @@ void Player::update(float deltaTime)
 	if (RAYLIB_H::IsKeyDown(KEY_SPACE))
 		SpaceActor::fire();
 
+	m_acceleration = direction * m_maxSpeed;
+
 	// Call super update
 	SpaceActor::Actor::update(deltaTime);
 }
