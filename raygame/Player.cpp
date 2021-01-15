@@ -29,6 +29,9 @@ void Player::update(float deltaTime)
 
 	m_acceleration = direction * m_maxSpeed;
 
+	// Look at mouse cursor
+	SpaceActor::lookAt(MathLibrary::Vector2(RAYLIB_H::GetMousePosition().x, RAYLIB_H::GetMousePosition().y));
+
 	// Call super update
 	SpaceActor::update(deltaTime);
 }
