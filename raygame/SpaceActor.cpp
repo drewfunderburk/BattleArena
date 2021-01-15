@@ -13,6 +13,14 @@ SpaceActor::SpaceActor(float x, float y, float collisionRadius, const char* spri
     m_fireDelay = coolDown;
 }
 
+void SpaceActor::update(float deltaTime)
+{
+    m_velocity = m_velocity - m_velocity / 20;
+
+    //Call super update
+    Actor::update(deltaTime);
+}
+
 void SpaceActor::takeDamage(float damageVal)
 {
 	m_health -= damageVal;
