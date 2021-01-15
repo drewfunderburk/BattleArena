@@ -1,6 +1,5 @@
 #include "Player.h"
 #include <raylib.h>
-#include "Actor.h"
 
 Player::Player(MathLibrary::Vector2 position, float rotation) : SpaceActor(position.x, position.y, 10, "/Images/Player.png", 10, 100, 1)
 {
@@ -34,5 +33,5 @@ void Player::update(float deltaTime)
 	SpaceActor::lookAt(MathLibrary::Vector2(RAYLIB_H::GetMousePosition().x, RAYLIB_H::GetMousePosition().y));
 
 	// Call super update
-	SpaceActor::Actor::update(deltaTime);
+	SpaceActor::update(deltaTime);
 }
