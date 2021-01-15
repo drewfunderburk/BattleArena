@@ -1,6 +1,5 @@
 #include "Player.h"
 #include <raylib.h>
-#include "Actor.h"
 
 Player::Player(MathLibrary::Vector2 position, float rotation) : SpaceActor(position.x, position.y, 10, "/Images/Player.png", 10, 100, 1)
 {
