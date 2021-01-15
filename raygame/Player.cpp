@@ -16,6 +16,14 @@ void Player::boost(float value)
 
 }
 
+void Player::start()
+{
+	m_shield = new Shield();
+	//m_shield->setLocalPosition(MathLibrary::Vector2(20, 0));
+	Game::getCurrentScene()->addActor(m_shield);
+	addChild(m_shield);
+}
+
 void Player::update(float deltaTime)
 {
 	// Get input from the player and convert to vector

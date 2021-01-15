@@ -153,6 +153,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Shield.cpp" />
     <ClCompile Include="SpaceActor.cpp" />
     <ClCompile Include="Sprite.cpp" />
   </ItemGroup>
@@ -163,6 +164,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="Shield.h" />
     <ClInclude Include="SpaceActor.h" />
     <ClInclude Include="Sprite.h" />
   </ItemGroup>

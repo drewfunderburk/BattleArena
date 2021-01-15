@@ -2,11 +2,13 @@
 
 #include <Vector2.h>
 #include"SpaceActor.h"
+#include "Shield.h"
 
 class Player : public SpaceActor
 {
 private:
 	float m_boostAmount;
+	Shield* m_shield;
 
 private:
 	/// <summary>
@@ -25,5 +27,6 @@ public:
 	/// <param name="rotation">Rotation</param>
 	Player(float x, float y, float rotation);
 
+	void start();
 	void update(float deltaTime);
 };
