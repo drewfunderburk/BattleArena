@@ -12,8 +12,7 @@ private:
 	/// <summary>
 	/// Propel the player along their forward axis at a given speed
 	/// </summary>
-	/// <param name="value">How much force to add</param>
-	void boost(float value);
+	void fire();
 
 public:
 	/// <param name="position">Position</param>
