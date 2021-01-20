@@ -24,9 +24,7 @@ Player::Player(float x, float y, float rotation) : SpaceActor(x, y, 10, "/Images
 void Player::update(float deltaTime)
 {
 	// Get input from the player and convert to vector
-	int xDirection = -RAYLIB_H::IsKeyDown(KEY_A) + RAYLIB_H::IsKeyDown(KEY_D);
-	int yDirection = -RAYLIB_H::IsKeyDown(KEY_W) + RAYLIB_H::IsKeyDown(KEY_S);
-	MathLibrary::Vector2 direction = MathLibrary::Vector2(xDirection, yDirection);
+	MathLibrary::Vector2 direction = getForward() * RAYLIB_H::IsKeyDown(KEY_W);
 
 	m_acceleration = direction * m_speed;
 
