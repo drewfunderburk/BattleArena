@@ -29,6 +29,16 @@ Actor::~Actor()
 	delete m_sprite;
 }
 
+void Game::spawnEnemies()
+{
+	// Difficulty curve
+	// 8log(x-4)
+	for (int i = 0; i < getCurrentScene()->getNumActors(); i++)
+	{
+
+	}
+}
+
 void Game::start()
 {
 	// Init window
@@ -49,10 +59,6 @@ void Game::start()
 
 	Player* player = new Player(100, 100, 0);
 	scene1->addActor(player);
-
-	Enemy* enemy = new Enemy(100, 100, 1, "/Images/Player.png", 50, 1, 1);
-	scene1->addActor(enemy);
-	enemy->setTarget(player);
 }
 
 void Game::update(float deltaTime)

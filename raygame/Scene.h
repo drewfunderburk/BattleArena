@@ -47,8 +47,11 @@ public:
 
     virtual void end();
 
+    int getNumActors() { return m_numActors; }
+
 private:
     Actor** m_actors;
+    int m_numActors = 0;
     MathLibrary::Matrix3* m_world;
     bool m_started;
     int m_actorCount;

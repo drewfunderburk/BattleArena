@@ -83,6 +83,8 @@ private:
 	void draw();
 	void end();
 
+    void spawnEnemies();
+
 private:
     Camera2D* m_camera;
     static bool m_gameOver;
