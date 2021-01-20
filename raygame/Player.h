@@ -2,14 +2,9 @@
 
 #include <Vector2.h>
 #include"SpaceActor.h"
-#include "Shield.h"
 
 class Player : public SpaceActor
 {
-private:
-	float m_boostAmount;
-	Shield* m_shield;
-
 private:
 	/// <summary>
 	/// Propel the player along their forward axis at a given speed
@@ -26,10 +21,14 @@ public:
 	/// <param name="rotation">Rotation</param>
 	Player(float x, float y, float rotation);
 
+	static void onCollision(Actor* other);
+
 	void start();
 	void update(float deltaTime);
 
 private:
+	Actor* m_shield;
+
 	float m_boostAmount;
 	float m_health = 10;
 	float m_fireDelay = 1;

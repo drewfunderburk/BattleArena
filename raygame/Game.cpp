@@ -50,7 +50,7 @@ void Game::start()
 	Player* player = new Player(0, 0, 0);
 	scene1->addActor(player);
 
-	Bullet* bullet = new Bullet(0, 5, 1, '0', 3);
+	Bullet* bullet = new Bullet(500, 500, 1, '0', 3);
 	scene1->addActor(bullet);
 
 	Enemy* enemy = new Enemy(2, 2, 1, "/Images/Player.png", 1, 1, 1);
