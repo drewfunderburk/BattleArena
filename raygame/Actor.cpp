@@ -4,6 +4,19 @@
 #include "raylib.h"
 #include "Sprite.h"
 
+Actor::Actor()
+{
+    m_globalTransform = new MathLibrary::Matrix3();
+    m_localTransform = new MathLibrary::Matrix3();
+    m_rotation = new MathLibrary::Matrix3();
+    m_translation = new MathLibrary::Matrix3();
+    m_scale = new MathLibrary::Matrix3();
+    m_velocity = MathLibrary::Vector2();
+    m_collisionRadius = 10;
+    m_childCount = 0;
+    m_maxSpeed = 100;
+}
+
 Actor::Actor(float x, float y, float collisionRadius, char icon = ' ', float maxSpeed = 1)
 {
     m_globalTransform = new MathLibrary::Matrix3();

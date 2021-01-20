@@ -14,8 +14,7 @@ private:
 	/// <summary>
 	/// Propel the player along their forward axis at a given speed
 	/// </summary>
-	/// <param name="value">How much force to add</param>
-	void boost(float value);
+	void fire();
 
 public:
 	/// <param name="position">Position</param>
@@ -29,4 +28,11 @@ public:
 
 	void start();
 	void update(float deltaTime);
+
+private:
+	float m_boostAmount;
+	float m_health = 10;
+	float m_fireDelay = 1;
+	float m_lastFireTime = 0;
+	float m_speed = 30;
 };
