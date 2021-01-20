@@ -6,9 +6,6 @@
 class Player : public SpaceActor
 {
 private:
-	float m_boostAmount;
-
-private:
 	/// <summary>
 	/// Propel the player along their forward axis at a given speed
 	/// </summary>
@@ -27,8 +24,9 @@ public:
 	void update(float deltaTime);
 
 private:
+	float m_boostAmount;
 	float m_health = 10;
 	float m_fireDelay = 1;
 	float m_lastFireTime = 0;
-	float m_speed = 10;
+	float m_speed = 30;
 };
