@@ -11,7 +11,6 @@ Bullet::Bullet(float x, float y, float collisionRadius, const char* spriteFilePa
 
 void Bullet::update(float deltaTime)
 {
-	rotate(0.1);
 	m_acceleration = getForward() * m_maxSpeed;
 	Actor::update(deltaTime);
 }

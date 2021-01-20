@@ -47,14 +47,12 @@ void Game::start()
 	Scene* scene1 = new Scene();
 	addScene(scene1);
 
-	Player* player = new Player(0, 0, 0);
+	Player* player = new Player(100, 100, 0);
 	scene1->addActor(player);
 
-	Bullet* bullet = new Bullet(0, 5, 1, '0', 3);
-	scene1->addActor(bullet);
-
-	Enemy* enemy = new Enemy(2, 2, 1, "/Images/Player.png", 1, 1, 1);
+	Enemy* enemy = new Enemy(100, 100, 1, "/Images/Player.png", 50, 1, 1);
 	scene1->addActor(enemy);
+	enemy->setTarget(player);
 }
 
 void Game::update(float deltaTime)
