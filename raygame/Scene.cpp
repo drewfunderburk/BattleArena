@@ -24,8 +24,6 @@ void Scene::addActor(Actor* actor)
 
     for (int i = 0; i < actor->getChildCount(); i++)
         addActor(actor->getChildren()[i]);
-
-    m_numActors++;
 }
 
 bool Scene::removeActor(int index)
