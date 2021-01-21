@@ -3,6 +3,8 @@
 #include "Player.h"
 #include "Bullet.h"
 #include "Enemy.h"
+#include <iostream>
+#include <chrono>
 
 bool Game::m_gameOver = false;
 Scene** Game::m_scenes = new Scene*;
@@ -31,11 +33,50 @@ Actor::~Actor()
 
 void Game::spawnEnemies()
 {
+	// Change m_enemySpawnDelay to increase or decrease how frequently enemies are spawned
 	// Difficulty curve
-	// 8log(x-4)
-	for (int i = 0; i < getCurrentScene()->getNumActors(); i++)
+	// 10log(x-4)
+	if (RAYLIB_H::GetTime() > (double)m_enemySpawnDelay + (double)m_enemySpawnLast)
 	{
+		m_enemySpawnLast = RAYLIB_H::GetTime();
+		// https://www.desmos.com/calculator/zqytdxxgmp
+		// Vertical multiplier, how quickly it gets hard
+		int multiplier = 5;
+		// Horizontal offset, delay before it starts
+		int offset = 0;
+		int numSpawn = multiplier * log(RAYLIB_H::GetTime() - offset - 1);
+		
+		for (int i = 0; i < numSpawn; i++)
+		{
+			// Get a random X and Y outside of the screen bounds
+			srand
+			(
+				std::chrono::duration_cast<std::chrono::milliseconds>
+				(
+					std::chrono::system_clock::now().time_since_epoch()
+				).count()
+			);
 
+			float randomX, randomY;
+			float random = rand() % 100 + 50;
+			int toggle = rand() % 2;
+			if (toggle)
+				randomX = -random;
+			else
+				randomX = RAYLIB_H::GetScreenWidth() + random;
+
+			random = rand() % 100 + 50;
+			toggle = rand() % 2;
+			if (toggle)
+				randomY = -random;
+			else
+				randomY = RAYLIB_H::GetScreenHeight() + random;
+
+			// Spawn enemy
+			Enemy* enemy = new Enemy(randomX, randomY, 10, "Images/Enemy.png", 50, 1, 1);
+			enemy->setTarget(m_player);
+			getCurrentScene()->addActor(enemy);
+		}
 	}
 }
 
@@ -57,14 +98,16 @@ void Game::start()
 	Scene* scene1 = new Scene();
 	addScene(scene1);
 
-	Player* player = new Player(100, 100, 0);
-	scene1->addActor(player);
+	m_player = new Player(100, 100, 0);
+	scene1->addActor(m_player);
 }
 
 void Game::update(float deltaTime)
 {
 	for (int i = 0; i < m_sceneCount; i++)
 		m_scenes[i]->update(deltaTime);
+
+	spawnEnemies();
 }
 
 void Game::draw()

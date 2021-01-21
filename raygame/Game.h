@@ -1,5 +1,6 @@
 #pragma once
 #include "Scene.h"
+#include "Player.h"
 class Camera2D;
 
 static class Game
@@ -91,4 +92,7 @@ private:
 	static Scene** m_scenes;
     static int m_sceneCount;
     static int m_currentSceneIndex;
+    int m_enemySpawnDelay = 5;
+    int m_enemySpawnLast = 0;
+    Player* m_player;
 };
