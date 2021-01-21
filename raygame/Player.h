@@ -28,7 +28,7 @@ public:
 
 private:
 	Actor* m_shield;
-
+	float m_shieldRadius = 10;
 	float m_boostAmount;
 	float m_health = 10;
 	float m_fireDelay = 1;

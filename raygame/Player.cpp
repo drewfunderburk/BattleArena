@@ -26,7 +26,14 @@ Player::Player(float x, float y, float rotation) : SpaceActor(x, y, 10, "/Images
 
 void Player::onCollision(Actor* other)
 {
-
+	//if (other is in shieldRadius && other is not in collisionRadius)
+	//{
+	//	Check dot product;
+	//	if (other is in shield angle)
+	//		delete other;
+	//}
+	//else if (other is in collision radius)
+	//	do normal collision stuffs;
 }
 
 void Player::start()
