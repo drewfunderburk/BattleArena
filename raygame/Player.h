@@ -2,6 +2,7 @@
 
 #include <Vector2.h>
 #include"SpaceActor.h"
+#include <raylib.h>
 
 class Player : public SpaceActor
 {
@@ -21,7 +22,7 @@ public:
 	/// <param name="rotation">Rotation</param>
 	Player(float x, float y, float rotation);
 
-	static void onCollision(Actor* other);
+	bool checkCollision(Actor* other);
 
 	void start();
 	void update(float deltaTime);
@@ -29,6 +30,9 @@ public:
 private:
 	Actor* m_shield;
 	float m_shieldRadius = 10;
+	float m_shieldLHS = 5*PI/6;
+	float m_shieldRHS = PI/6;
+
 	float m_boostAmount;
 	float m_health = 10;
 	float m_fireDelay = 1;

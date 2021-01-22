@@ -1,6 +1,6 @@
 #include "Player.h"
-#include <raylib.h>
 #include "Game.h"
+#include <cmath>
 
 void Player::fire()
 {
@@ -24,16 +24,24 @@ Player::Player(float x, float y, float rotation) : SpaceActor(x, y, 10, "/Images
 	m_maxSpeed = 500;
 }
 
-void Player::onCollision(Actor* other)
+bool Player::checkCollision(Actor* other)
 {
-	//if (other is in shieldRadius && other is not in collisionRadius)
-	//{
-	//	Check dot product;
-	//	if (other is in shield angle)
-	//		delete other;
-	//}
-	//else if (other is in collision radius)
-	//	do normal collision stuffs;
+	//float distance = (other->getWorldPosition() - getWorldPosition()).getMagnitude();
+
+	if (other->checkCollision(m_shield) && !other->checkCollision(this))
+	{
+		MathLibrary::Vector2 direction = other->getWorldPosition() - getWorldPosition();
+		float angle = acos(MathLibrary::Vector2::dotProduct(getForward(), direction));
+
+		//Check to see if the collision is on the shield side of the Player
+		if (angle < m_shieldLHS && angle > m_shieldRHS)
+		{
+			//delete(other);
+			return true;
+		}
+	}
+
+	Actor::checkCollision(other);
 }
 
 void Player::start()

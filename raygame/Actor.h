@@ -156,7 +156,7 @@ public:
     /// </summary>
     /// <param name="other">The actor to check collision against.</param>
     /// <returns>Returns true if the distance between the two actors is less than their combined radii.</returns>
-    bool checkCollision(Actor* other);
+    bool virtual checkCollision(Actor* other);
 
     /// <summary>
     /// Called when a collision between this actor and another occurs. 
