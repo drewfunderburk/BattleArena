@@ -28,7 +28,7 @@ bool Player::checkCollision(Actor* other)
 {
 	//float distance = (other->getWorldPosition() - getWorldPosition()).getMagnitude();
 
-	if (other->checkCollision(m_shield) && !other->checkCollision(this))
+	if (other->checkCollision(m_shield) && !other->checkCollision(this) && (typeid(other) == typeid(Actor())))
 	{
 		MathLibrary::Vector2 direction = other->getWorldPosition() - getWorldPosition();
 		float angle = acos(MathLibrary::Vector2::dotProduct(getForward(), direction));
@@ -36,7 +36,7 @@ bool Player::checkCollision(Actor* other)
 		//Check to see if the collision is on the shield side of the Player
 		if (angle < m_shieldLHS && angle > m_shieldRHS)
 		{
-			//delete(other);
+			delete(other);
 			return true;
 		}
 	}

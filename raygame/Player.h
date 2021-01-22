@@ -3,6 +3,7 @@
 #include <Vector2.h>
 #include"SpaceActor.h"
 #include <raylib.h>
+#include <typeinfo>
 
 class Player : public SpaceActor
 {
