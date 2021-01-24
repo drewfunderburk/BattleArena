@@ -25,6 +25,8 @@ public:
 
 	bool checkCollision(Actor* other);
 
+	void onCollision(Actor* other);
+
 	void start();
 	void update(float deltaTime);
 
@@ -33,6 +35,8 @@ private:
 	float m_shieldRadius = 10;
 	float m_shieldLHS = 5*PI/6;
 	float m_shieldRHS = PI/6;
+	float m_timeSinceBlock = 0;
+	float m_shieldCoolDown = 2;
 
 	float m_boostAmount;
 	float m_health = 10;

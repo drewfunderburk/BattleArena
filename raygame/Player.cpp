@@ -33,15 +33,22 @@ bool Player::checkCollision(Actor* other)
 		MathLibrary::Vector2 direction = other->getWorldPosition() - getWorldPosition();
 		float angle = acos(MathLibrary::Vector2::dotProduct(getForward(), direction));
 
-		//Check to see if the collision is on the shield side of the Player
-		if (angle < m_shieldLHS && angle > m_shieldRHS)
+		//Check to see if the collision is on the shield side of the Player and if the cooldown has ended
+		if (angle < m_shieldLHS && angle > m_shieldRHS && m_timeSinceBlock >= m_shieldCoolDown)
 		{
-			delete(other);
 			return true;
 		}
 	}
 
 	Actor::checkCollision(other);
+}
+
+void Player::onCollision(Actor* other)
+{
+	m_timeSinceBlock = 0;
+
+	//other::takeDamage(10);
+	//delete(other);
 }
 
 void Player::start()
@@ -56,6 +63,8 @@ void Player::start()
 
 void Player::update(float deltaTime)
 {
+	m_timeSinceBlock += deltaTime;
+
 	// Get input from the player and convert to vector
 	MathLibrary::Vector2 direction = getForward() * RAYLIB_H::IsKeyDown(KEY_W);
 
