@@ -236,19 +236,19 @@ void Actor::update(float deltaTime)
 
 void Actor::draw()
 {
-    DrawCircle(getWorldPosition().x, getWorldPosition().y, 50, BLUE);
     //Draws the Actor and a line indicating it facing to the raylib window
+    /*
     DrawLine(
         (int)(getWorldPosition().x),
         (int)(getWorldPosition().y),
         (int)((getWorldPosition().x + (getForward().x * 32))),
         (int)((getWorldPosition().y + (getForward().y * 32))),
         WHITE);
-
+    */
     if (m_sprite)
         m_sprite->draw(*m_globalTransform);
     
-    DrawCircleLines(getWorldPosition().x, getWorldPosition().y, m_collisionRadius, RED);
+    //DrawCircleLines(getWorldPosition().x, getWorldPosition().y, m_collisionRadius, RED);
 }
 
 void Actor::debug()
