@@ -119,9 +119,6 @@ void Game::start()
 
 	Button* endButton = new Button("Press any key to continue...", 250, 300, 40, -1);
 	endScreen->addActor(endButton);
-
-	TextBox* testBox = new TextBox(50, 50, "TestBox ha ha funny", 50);
-	scene1->addActor(testBox);
 }
 
 void Game::update(float deltaTime)
@@ -155,9 +152,8 @@ void Game::draw()
 
 void Game::end()
 {
-	CloseWindow();
-
-	std::cout << "You destroyed " << m_player->getScore() << " objects!";
+	system("cls");
+	std::cout << "You destroyed " << m_player->getScore() << " objects!" << std::endl;
 	system("pause");
 }
 
