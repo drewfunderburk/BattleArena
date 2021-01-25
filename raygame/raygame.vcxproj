@@ -156,6 +156,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SpaceActor.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="TextBox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
@@ -167,6 +168,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SpaceActor.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="TextBox.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
