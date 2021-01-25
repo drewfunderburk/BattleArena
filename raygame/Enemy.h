@@ -4,7 +4,7 @@
 class Enemy : public SpaceActor
 {
 public:
-	Enemy() {}
+    Enemy() : SpaceActor() {}
 
     /// <param name="health">Amount of hits this Enemy can take before being destroyed</param>
     /// <param name="x">Position on the x axis</param>
@@ -22,6 +22,12 @@ public:
     /// <param name="maxSpeed">The largest the magnitude of the Enemys velocity can be.</param>
     Enemy(float x, float y, float collisionRadius, const char* spriteFilePath, float maxSpeed, float health, float fireDelay);
 
+    void update(float deltaTime);
+    void fire();
+
+    void setTarget(Actor* target) { m_target = target; }
+    void setMaxSpeed(float speed) { m_maxSpeed = speed; }
+
 private:
     /// <summary>
     /// Calculates the score the Player would get if this Enemy is destroyed
@@ -30,4 +36,5 @@ private:
 
 private:
     int m_scoreValue = 1;
+    Actor* m_target;
 };

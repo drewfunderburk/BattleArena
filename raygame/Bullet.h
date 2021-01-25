@@ -4,7 +4,7 @@
 class Bullet : public Actor
 {
 public:
-	Bullet() {}
+	Bullet() : Actor() {}
 
     /// <param name="lifeTime">The time the Bullet can travel without colliding with something before it is destroyed</param>
     /// <param name="x">Position on the x axis</param>

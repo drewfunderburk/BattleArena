@@ -1,4 +1,6 @@
 #include "Bullet.h"
+#include "Game.h"
+#include "raylib.h"
 
 Bullet::Bullet(float x, float y, float collisionRadius, char icon, float maxSpeed) : Actor(x, y, collisionRadius, icon, maxSpeed)
 { }
@@ -11,7 +13,17 @@ Bullet::Bullet(float x, float y, float collisionRadius, const char* spriteFilePa
 
 void Bullet::update(float deltaTime)
 {
-	rotate(0.1);
+	// If this bullet has left the playable area, delete it
+	float offset = 50;
+	if (getWorldPosition().x < -offset ||
+		getWorldPosition().x > RAYLIB_H::GetScreenWidth() + offset ||
+		getWorldPosition().y < -offset ||
+		getWorldPosition().y > RAYLIB_H::GetScreenHeight() + offset)
+	{
+		Game::destroy(this);
+		return;
+	}
+
 	m_acceleration = getForward() * m_maxSpeed;
 	Actor::update(deltaTime);
 }

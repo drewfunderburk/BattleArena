@@ -15,7 +15,7 @@ SpaceActor::SpaceActor(float x, float y, float collisionRadius, const char* spri
 
 void SpaceActor::update(float deltaTime)
 {
-    m_velocity = m_velocity - m_velocity / 20;
+    m_velocity = m_velocity - m_velocity / 100;
 
     //Call super update
     Actor::update(deltaTime);

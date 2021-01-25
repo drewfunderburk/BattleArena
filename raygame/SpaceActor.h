@@ -4,7 +4,7 @@
 class SpaceActor : public Actor
 {
 public:
-	SpaceActor() {}
+    SpaceActor() : Actor() {}
 
     /// <param name="health">Amount of hits this SpaceActor can take before being destroyed</param>
     /// <param name="x">Position on the x axis</param>
@@ -32,8 +32,10 @@ public:
 
     float getHealth() { return m_health; }
     float getFireDelay() { return m_fireDelay; }
+    float getLastFireTime() { return m_lastFireTime; }
     void setSpeed(float speed) { m_speed = speed; }
     void setFireDelay(float delay) { m_fireDelay = delay; }
+    void setLastFireTime(float time) { m_lastFireTime = time; }
 
 protected:
     /// <summary>
