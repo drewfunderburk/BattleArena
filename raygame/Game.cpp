@@ -3,10 +3,8 @@
 #include "Player.h"
 #include "Bullet.h"
 #include "Enemy.h"
-#include "TextBox.h"
 #include <iostream>
 #include <chrono>
-#include "Button.h"
 
 bool Game::m_gameOver = false;
 Scene** Game::m_scenes = new Scene*;
@@ -96,38 +94,20 @@ void Game::start()
 
 	SetTargetFPS(60);
 
-	// Init Start scene
-	Scene* startScreen = new Scene();
-	addScene(startScreen);
-
-	// Set scene to start scene first
-	setCurrentScene(0);
-
-	Button* startButton = new Button("Press any key to continue...", 250, 300, 40, 1);
-	startScreen->addActor(startButton);
-
-	// Init main game scene
+	// Init new scene
 	Scene* scene1 = new Scene();
 	addScene(scene1);
 
 	m_player = new Player(100, 100, 0);
 	scene1->addActor(m_player);
-
-	// Init End scene
-	Scene* endScreen = new Scene();
-	addScene(endScreen);
-
-	Button* endButton = new Button("Press any key to continue...", 250, 300, 40, -1);
-	endScreen->addActor(endButton);
 }
 
 void Game::update(float deltaTime)
 {
-	getCurrentScene()->update(deltaTime);
+	for (int i = 0; i < m_sceneCount; i++)
+		m_scenes[i]->update(deltaTime);
 
-	// Only spawn enemies in the main scene
-	if (getCurrentSceneIndex() == 1)
-		spawnEnemies();
+	spawnEnemies();
 }
 
 void Game::draw()
@@ -137,24 +117,20 @@ void Game::draw()
 	BeginMode2D(*m_camera);
 	ClearBackground(RAYWHITE);
 
-	getCurrentScene()->draw();
+	for (int i = 0; i < m_sceneCount; i++)
+		m_scenes[i]->draw();
 
-	if (getCurrentSceneIndex() > 0)
-	{
-		char scoreString[128];
-		sprintf_s(scoreString, "%d", m_player->getScore());
-		DrawText(scoreString, 10, 10, 20, BLUE);
-	}
 
+	char scoreString[128];
+	sprintf_s(scoreString, "%d", m_player->getScore());
+	DrawText(scoreString, 10, 10, 20, BLUE);
 	EndMode2D();
 	EndDrawing();
 }
 
 void Game::end()
 {
-	system("cls");
-	std::cout << "You destroyed " << m_player->getScore() << " objects!" << std::endl;
-	system("pause");
+	CloseWindow();
 }
 
 MathLibrary::Matrix3* Game::getWorld()
