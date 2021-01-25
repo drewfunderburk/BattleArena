@@ -94,20 +94,39 @@ void Game::start()
 
 	SetTargetFPS(60);
 
+	Scene* startMenu = new Scene();
+	addScene(startMenu);
+
 	// Init new scene
 	Scene* scene1 = new Scene();
 	addScene(scene1);
 
 	m_player = new Player(100, 100, 0);
 	scene1->addActor(m_player);
+
+	setCurrentScene(0);
 }
 
 void Game::update(float deltaTime)
 {
+	switch (Game::getCurrentSceneIndex())
+	{
+	case 0:
+		if (IsMouseButtonPressed)
+			setCurrentScene(1);
+			break;
+
+	case 1:
+		spawnEnemies();
+		break;
+
+	case 2:
+		if (IsMouseButtonPressed)
+			setGameOver(true);
+		break;
+	}
 	for (int i = 0; i < m_sceneCount; i++)
 		m_scenes[i]->update(deltaTime);
-
-	spawnEnemies();
 }
 
 void Game::draw()
@@ -116,13 +135,24 @@ void Game::draw()
 
 	BeginMode2D(*m_camera);
 	ClearBackground(RAYWHITE);
+	switch (Game::getCurrentSceneIndex())
+	{
+	case 0:
+		DrawText("Click to Start", 50, 50, 20, RAYWHITE);
+		break;
 
+	case 2:
+		DrawText("Game Over", 50, 80, 20, RAYWHITE);
+		DrawText("score will be displayed here", 50, 10, 10, RAYWHITE);
+		DrawText("Press ESC or Mouse1 to close this window", 50, 5, 5, RAYWHITE);
+		break;
+	}
 	for (int i = 0; i < m_sceneCount; i++)
 		m_scenes[i]->draw();
 
 	EndMode2D();
 	EndDrawing();
-}
+;}
 
 void Game::end()
 {
