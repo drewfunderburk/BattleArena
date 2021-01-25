@@ -100,8 +100,6 @@ void Game::start()
 
 	m_player = new Player(100, 100, 0);
 	scene1->addActor(m_player);
-	Enemy* enemy = new Enemy(500, 500, 50, "/Images/Player.png", 1, 1, 1);
-	scene1->addActor(enemy);
 }
 
 void Game::update(float deltaTime)

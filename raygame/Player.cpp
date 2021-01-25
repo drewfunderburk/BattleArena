@@ -23,21 +23,28 @@ Player::Player(MathLibrary::Vector2 position, float rotation) : Player(position.
 
 void Player::onCollision(Actor* other)
 {
+	// Get distance to other collider to check if it's hit the shield or the player
 	float distanceToOther = (other->getWorldPosition() - getWorldPosition()).getMagnitude();
+
+	// Get the direction to the collided object
+	MathLibrary::Vector2 direction = (other->getWorldPosition() - getWorldPosition()).getNormalized();
+	// Get the dotproduct of the direction and the player's forward vector
+	float dotProduct = MathLibrary::Vector2::dotProduct(direction, getForward());
+	// Check if the angle to the other collider would place it on the shield
+	float angleToOther = acos(dotProduct);
+
+	if (angleToOther < m_shieldAngle)
+	{
+		// Collided with shield, destroy the object
+		Game::destroy(other);
+		return;
+	}
 
 	if (distanceToOther / 2 < m_actualCollisionRadius)
 	{
 		// Actually collided with the player, game over
-		//Game::setGameOver(true);
-		std::cout << "Player" << std::endl;
+		Game::setGameOver(true);
 		return;
-	}
-	
-	float angleToOther = acos(MathLibrary::Vector2::dotProduct(other->getWorldPosition().getNormalized(), getForward()));
-	if (angleToOther < m_shieldAngle)
-	{
-		std::cout << "Shield" << std::endl;
-		Game::destroy(other);
 	}
 }
 
@@ -62,7 +69,6 @@ void Player::update(float deltaTime)
 void Player::draw()
 {
 	Actor::draw();
-
 	// Show actual collision
 	DrawCircleLines(getWorldPosition().x, getWorldPosition().y, m_actualCollisionRadius, GREEN);
 }
