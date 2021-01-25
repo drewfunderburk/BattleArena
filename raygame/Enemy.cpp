@@ -22,7 +22,7 @@ void Enemy::calcScore()
 void Enemy::fire()
 {
 	// Spawn new bullet
-	Bullet* bullet = new Bullet(getWorldPosition().x, getWorldPosition().y, 10, ' ', 500);
+	Bullet* bullet = new Bullet(getWorldPosition().x, getWorldPosition().y, 50, ' ', 500);
 
 	// Get angle between bullet forward and enemy forward
 	float angle = acos(MathLibrary::Vector2::dotProduct(getForward(), bullet->getForward()));
