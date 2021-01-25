@@ -13,7 +13,7 @@ Enemy::Enemy(float x, float y, float collisionRadius, const char* spriteFilePath
 void Enemy::fire()
 {
 	// Spawn new bullet
-	Bullet* bullet = new Bullet(getWorldPosition().x, getWorldPosition().y, 50, ' ', 500);
+	Bullet* bullet = new Bullet(getWorldPosition().x, getWorldPosition().y, 5, "Images/Laser.png", 500);
 
 	// Get angle between bullet forward and enemy forward
 	float angle = acos(MathLibrary::Vector2::dotProduct(getForward(), bullet->getForward()));

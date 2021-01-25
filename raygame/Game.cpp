@@ -73,7 +73,7 @@ void Game::spawnEnemies()
 				randomY = RAYLIB_H::GetScreenHeight() + random;
 
 			// Spawn enemy
-			Enemy* enemy = new Enemy(randomX, randomY, 10, "Images/Enemy.png", 50, 1, 1);
+			Enemy* enemy = new Enemy(randomX, randomY, 30, "Images/Enemy.png", 50, 1, 1);
 			enemy->setTarget(m_player);
 			getCurrentScene()->addActor(enemy);
 		}
