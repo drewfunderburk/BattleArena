@@ -247,7 +247,8 @@ void Actor::draw()
 
     if (m_sprite)
         m_sprite->draw(*m_globalTransform);
-    //Raylib.DrawCircleLines((int)(WorldPosition.X * 32), (int)(WorldPosition.Y * 32), _collisionRadius * 32, _rayColor);
+    
+    DrawCircleLines(getWorldPosition().x, getWorldPosition().y, m_collisionRadius, RED);
 }
 
 void Actor::debug()

@@ -192,12 +192,12 @@ protected:
     Actor** m_children;
     MathLibrary::Vector2 m_velocity;
     MathLibrary::Vector2 m_acceleration;
+    float m_collisionRadius;
     float m_maxSpeed;
     char m_icon;
 
 private:
     bool m_started;
-    float m_collisionRadius;
     Actor* m_parent;
     int m_childCount;
     Sprite* m_sprite;
