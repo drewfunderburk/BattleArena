@@ -31,7 +31,7 @@ public:
 
 private:
 	float m_actualCollisionRadius = 50;
-	float m_shieldAngle = PI / 4;
+	float m_shieldAngle = PI / 2;
 	int m_score = 0;
 	float m_boostAmount;
 	float m_health = 10;
