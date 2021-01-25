@@ -82,6 +82,8 @@ void Game::spawnEnemies()
 
 void Game::start()
 {
+	system("pause");
+
 	// Init window
 	int screenWidth = 1024;
 	int screenHeight = 760;
@@ -94,12 +96,23 @@ void Game::start()
 
 	SetTargetFPS(60);
 
-	// Init new scene
+	// Init Start scene
+	Scene* startScreen = new Scene();
+	addScene(startScreen);
+
+	// Init main game scene
 	Scene* scene1 = new Scene();
 	addScene(scene1);
 
 	m_player = new Player(100, 100, 0);
 	scene1->addActor(m_player);
+
+	// Init End scene
+	Scene* endScreen = new Scene();
+	addScene(endScreen);
+
+	// Set scene to start scene first
+	setCurrentScene(0);
 }
 
 void Game::update(float deltaTime)
@@ -107,7 +120,9 @@ void Game::update(float deltaTime)
 	for (int i = 0; i < m_sceneCount; i++)
 		m_scenes[i]->update(deltaTime);
 
-	spawnEnemies();
+	// Only spawn enemies in the main scene
+	if (getCurrentSceneIndex() == 1)
+		spawnEnemies();
 }
 
 void Game::draw()
@@ -130,7 +145,13 @@ void Game::draw()
 
 void Game::end()
 {
+	ClearBackground(RAYWHITE);
+	RAYLIB_H::DrawText("Objects Destroyed: " + m_player->getScore(), 25, 10, 50, DARKGRAY);
+
 	CloseWindow();
+
+	std::cout << "You destroyed " << m_player->getScore() << " objects!";
+	system("pause");
 }
 
 MathLibrary::Matrix3* Game::getWorld()
