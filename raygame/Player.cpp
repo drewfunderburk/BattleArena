@@ -37,6 +37,7 @@ void Player::onCollision(Actor* other)
 	{
 		// Collided with shield, destroy the object
 		Game::destroy(other);
+		m_score++;
 		return;
 	}
 
