@@ -4,6 +4,7 @@
 #include"SpaceActor.h"
 #include <raylib.h>
 #include <typeinfo>
+#include "Sprite.h"
 
 class Player : public SpaceActor
 {
@@ -27,10 +28,13 @@ public:
 	void update(float deltaTime);
 	void draw();
 
-private:
-	float m_actualCollisionRadius = 50;
-	float m_shieldAngle = PI / 4;
+	int getScore() { return m_score; }
 
+private:
+	Sprite* m_shieldSprite;
+	float m_actualCollisionRadius = 15;
+	float m_shieldAngle = PI / 2.5;
+	int m_score = 0;
 	float m_boostAmount;
 	float m_health = 10;
 	float m_fireDelay = 0.3;

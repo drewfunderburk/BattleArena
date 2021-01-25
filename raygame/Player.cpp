@@ -13,10 +13,13 @@ void Player::fire()
 }
 
 
-Player::Player(float x, float y, float rotation) : SpaceActor(x, y, 70, "/Images/Player.png", 10, 100, 1)
+Player::Player(float x, float y, float rotation) : SpaceActor(x, y, 50, "Images/Player.png", 10, 100, 1)
 {
 	m_boostAmount = 2000;
 	m_maxSpeed = 500;
+
+	m_shieldSprite = new Sprite("Images/Shield.png");
+	m_shieldSprite->setScale(128);
 }
 
 Player::Player(MathLibrary::Vector2 position, float rotation) : Player(position.x, position.y, rotation) {}
@@ -37,6 +40,7 @@ void Player::onCollision(Actor* other)
 	{
 		// Collided with shield, destroy the object
 		Game::destroy(other);
+		m_score++;
 		return;
 	}
 
@@ -70,5 +74,6 @@ void Player::draw()
 {
 	Actor::draw();
 	// Show actual collision
-	DrawCircleLines(getWorldPosition().x, getWorldPosition().y, m_actualCollisionRadius, GREEN);
+	//DrawCircleLines(getWorldPosition().x, getWorldPosition().y, m_actualCollisionRadius, GREEN);
+	m_shieldSprite->draw(*m_globalTransform);
 }

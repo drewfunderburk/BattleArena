@@ -73,7 +73,7 @@ void Game::spawnEnemies()
 				randomY = RAYLIB_H::GetScreenHeight() + random;
 
 			// Spawn enemy
-			Enemy* enemy = new Enemy(randomX, randomY, 10, "Images/Enemy.png", 50, 1, 1);
+			Enemy* enemy = new Enemy(randomX, randomY, 30, "Images/Enemy.png", 50, 1, 1);
 			enemy->setTarget(m_player);
 			getCurrentScene()->addActor(enemy);
 		}
@@ -120,6 +120,10 @@ void Game::draw()
 	for (int i = 0; i < m_sceneCount; i++)
 		m_scenes[i]->draw();
 
+
+	char scoreString[128];
+	sprintf_s(scoreString, "%d", m_player->getScore());
+	DrawText(scoreString, 10, 10, 20, BLUE);
 	EndMode2D();
 	EndDrawing();
 }
