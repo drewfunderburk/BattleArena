@@ -43,7 +43,7 @@ void Player::onCollision(Actor* other)
 	if (distanceToOther / 2 < m_actualCollisionRadius)
 	{
 		// Actually collided with the player, game over
-		Game::setCurrentScene(2);
+		Game::setGameOver(true);
 		return;
 	}
 }
