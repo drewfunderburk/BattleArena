@@ -1,5 +1,7 @@
 #include "Player.h"
-#include <raylib.h>
+#include "Game.h"
+#include <cmath>
+#include <iostream>
 
 void Player::fire()
 {
@@ -10,15 +12,40 @@ void Player::fire()
 	}
 }
 
-Player::Player(MathLibrary::Vector2 position, float rotation) : SpaceActor(position.x, position.y, 10, "/Images/Player.png", 10, 100, 1)
+
+Player::Player(float x, float y, float rotation) : SpaceActor(x, y, 70, "/Images/Player.png", 10, 100, 1)
 {
-	m_boostAmount = 1000;
+	m_boostAmount = 2000;
+	m_maxSpeed = 500;
 }
 
-Player::Player(float x, float y, float rotation) : SpaceActor(x, y, 10, "/Images/Player.png", 10, 100, 1)
+Player::Player(MathLibrary::Vector2 position, float rotation) : Player(position.x, position.y, rotation) {}
+
+void Player::onCollision(Actor* other)
 {
-	m_maxSpeed = 500;
-	m_boostAmount = 1000;
+	// Get distance to other collider to check if it's hit the shield or the player
+	float distanceToOther = (other->getWorldPosition() - getWorldPosition()).getMagnitude();
+
+	// Get the direction to the collided object
+	MathLibrary::Vector2 direction = (other->getWorldPosition() - getWorldPosition()).getNormalized();
+	// Get the dotproduct of the direction and the player's forward vector
+	float dotProduct = MathLibrary::Vector2::dotProduct(direction, getForward());
+	// Check if the angle to the other collider would place it on the shield
+	float angleToOther = acos(dotProduct);
+
+	if (angleToOther < m_shieldAngle)
+	{
+		// Collided with shield, destroy the object
+		Game::destroy(other);
+		return;
+	}
+
+	if (distanceToOther / 2 < m_actualCollisionRadius)
+	{
+		// Actually collided with the player, game over
+		Game::setGameOver(true);
+		return;
+	}
 }
 
 void Player::update(float deltaTime)
@@ -37,4 +64,11 @@ void Player::update(float deltaTime)
 
 	// Call super update
 	SpaceActor::update(deltaTime);
+}
+
+void Player::draw()
+{
+	Actor::draw();
+	// Show actual collision
+	DrawCircleLines(getWorldPosition().x, getWorldPosition().y, m_actualCollisionRadius, GREEN);
 }
