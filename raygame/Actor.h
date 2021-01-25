@@ -8,7 +8,7 @@ class Sprite;
 class Actor
 {
 public:
-    Actor() {}
+    Actor();
     /// <param name="x">Position on the x axis</param>
     /// <param name="y">Position on the y axis</param>
     /// <param name="collisionRadius">The size of the circle surrounding the actor that will be used to detect collisions.</param>
@@ -28,6 +28,8 @@ public:
     /// <param name="sprite">That path for the sprite that will be drawn in this actors draw function.</param>
     /// <param name="maxSpeed">The largest the magnitude of the actors velocity can be.</param>
     Actor(float x, float y, float collisionRadius, const char* spriteFilePath, float maxSpeed);
+
+    ~Actor();
 
     /// <summary>
     /// </summary>
@@ -154,7 +156,7 @@ public:
     /// </summary>
     /// <param name="other">The actor to check collision against.</param>
     /// <returns>Returns true if the distance between the two actors is less than their combined radii.</returns>
-    bool checkCollision(Actor* other);
+    bool virtual checkCollision(Actor* other);
 
     /// <summary>
     /// Called when a collision between this actor and another occurs. 
@@ -190,14 +192,13 @@ protected:
     Actor** m_children;
     MathLibrary::Vector2 m_velocity;
     MathLibrary::Vector2 m_acceleration;
+    float m_collisionRadius;
     float m_maxSpeed;
     char m_icon;
 
 private:
     bool m_started;
-    float m_collisionRadius;
     Actor* m_parent;
     int m_childCount;
     Sprite* m_sprite;
 };
-

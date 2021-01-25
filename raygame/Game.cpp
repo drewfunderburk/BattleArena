@@ -1,11 +1,15 @@
 #include "Game.h"
 #include "raylib.h"
+#include "Player.h"
+#include "Bullet.h"
+#include "Enemy.h"
+#include <iostream>
+#include <chrono>
 
 bool Game::m_gameOver = false;
 Scene** Game::m_scenes = new Scene*;
 int Game::m_sceneCount = 0;
 int Game::m_currentSceneIndex = 0;
-
 
 Game::Game()
 {
@@ -16,25 +20,94 @@ Game::Game()
 	m_sceneCount = 0;
 }
 
+Actor::~Actor()
+{
+	delete m_globalTransform;
+	delete m_localTransform;
+	delete m_rotation;
+	delete m_translation;
+	delete m_scale;
+	delete[] m_children;
+	delete m_sprite;
+}
+
+void Game::spawnEnemies()
+{
+	// Change m_enemySpawnDelay to increase or decrease how frequently enemies are spawned
+	// Difficulty curve
+	// 10log(x-4)
+	if (RAYLIB_H::GetTime() > (double)m_enemySpawnDelay + (double)m_enemySpawnLast)
+	{
+		m_enemySpawnLast = RAYLIB_H::GetTime();
+		// https://www.desmos.com/calculator/zqytdxxgmp
+		// Vertical multiplier, how quickly it gets hard
+		int multiplier = 5;
+		// Horizontal offset, delay before it starts
+		int offset = 0;
+		int numSpawn = multiplier * log(RAYLIB_H::GetTime() - offset - 1);
+		
+		for (int i = 0; i < numSpawn; i++)
+		{
+			// Get a random X and Y outside of the screen bounds
+			srand
+			(
+				std::chrono::duration_cast<std::chrono::milliseconds>
+				(
+					std::chrono::system_clock::now().time_since_epoch()
+				).count()
+			);
+
+			float randomX, randomY;
+			float random = rand() % 100 + 50;
+			int toggle = rand() % 2;
+			if (toggle)
+				randomX = -random;
+			else
+				randomX = RAYLIB_H::GetScreenWidth() + random;
+
+			random = rand() % 100 + 50;
+			toggle = rand() % 2;
+			if (toggle)
+				randomY = -random;
+			else
+				randomY = RAYLIB_H::GetScreenHeight() + random;
+
+			// Spawn enemy
+			Enemy* enemy = new Enemy(randomX, randomY, 10, "Images/Enemy.png", 50, 1, 1);
+			enemy->setTarget(m_player);
+			getCurrentScene()->addActor(enemy);
+		}
+	}
+}
+
 void Game::start()
 {
+	// Init window
 	int screenWidth = 1024;
 	int screenHeight = 760;
 
-	InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
+	InitWindow(screenWidth, screenHeight, "Shield Bash");
+	// Init Camera
 	m_camera->offset = { (float)screenWidth / 2, (float)screenHeight / 2 };
 	m_camera->target = { (float)screenWidth / 2, (float)screenHeight / 2 };
 	m_camera->zoom = 1;
 
 	SetTargetFPS(60);
+
+	// Init new scene
+	Scene* scene1 = new Scene();
+	addScene(scene1);
+
+	m_player = new Player(100, 100, 0);
+	scene1->addActor(m_player);
 }
 
 void Game::update(float deltaTime)
 {
 	for (int i = 0; i < m_sceneCount; i++)
-	{
 		m_scenes[i]->update(deltaTime);
-	}
+
+	spawnEnemies();
 }
 
 void Game::draw()
@@ -45,9 +118,7 @@ void Game::draw()
 	ClearBackground(RAYWHITE);
 
 	for (int i = 0; i < m_sceneCount; i++)
-	{
 		m_scenes[i]->draw();
-	}
 
 	EndMode2D();
 	EndDrawing();
@@ -97,26 +168,18 @@ int Game::getCurrentSceneIndex()
 
 int Game::addScene(Scene* scene)
 {
-	//If the scene is null then return before running any other logic
 	if (!scene)
 		return -1;
 
-	//Create a new temporary array that one size larger than the original
 	Scene** tempArray = new Scene*[m_sceneCount + 1];
 
-	//Copy values from old array into new array
 	for (int i = 0; i < m_sceneCount; i++)
-	{
 		tempArray[i] = m_scenes[i];
-	}
 
-	//Store the current index
 	int index = m_sceneCount;
 
-	//Sets the scene at the new index to be the scene passed in
 	tempArray[index] = scene;
 
-	//Set the old array to the tmeporary array
 	m_scenes = tempArray;
 	m_sceneCount++;
 
@@ -125,16 +188,14 @@ int Game::addScene(Scene* scene)
 
 bool Game::removeScene(Scene* scene)
 {
-	//If the scene is null then return before running any other logic
 	if (!scene)
 		return false;
 
 	bool sceneRemoved = false;
 
-	//Create a new temporary array that is one less than our original array
-	Scene** tempArray = new Scene*[m_sceneCount];
+	Scene** tempArray = new Scene*[m_sceneCount - 1];
 
-	//Copy all scenes except the scene we don't want into the new array
+	//Copy all Scenes except for the passed in Scene into tempArray
 	int j = 0;
 	for (int i = 0; i < m_sceneCount; i++)
 	{
@@ -144,33 +205,25 @@ bool Game::removeScene(Scene* scene)
 			j++;
 		}
 		else
-		{
 			sceneRemoved = true;
-		}
 	}
 
-	//If the scene was successfully removed set the old array to be the new array
 	if (sceneRemoved)
 	{
 		m_scenes = tempArray;
 		m_sceneCount--;
 	}
-		
-
 	return sceneRemoved;
 }
 
 void Game::setCurrentScene(int index)
 {
-	//If the index is not within the range of the the array return
 	if (index < 0 || index >= m_sceneCount)
 		return;
 
-	//Call end for the previous scene before changing to the new one
 	if (m_scenes[m_currentSceneIndex]->getStarted())
 		m_scenes[m_currentSceneIndex]->end();
 
-	//Update the current scene index
 	m_currentSceneIndex = index;
 }
 
