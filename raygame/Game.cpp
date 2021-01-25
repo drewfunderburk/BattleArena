@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Bullet.h"
 #include "Enemy.h"
+#include "TextBox.h"
 #include <iostream>
 #include <chrono>
 
@@ -111,6 +112,9 @@ void Game::start()
 	Scene* endScreen = new Scene();
 	addScene(endScreen);
 
+	TextBox* testBox = new TextBox(50, 50, "TestBox ha ha funny", 50);
+	scene1->addActor(testBox);
+
 	// Set scene to start scene first
 	setCurrentScene(0);
 }
@@ -150,7 +154,8 @@ void Game::end()
 
 	CloseWindow();
 
-	std::cout << "You destroyed " << m_player->getScore() << " objects!";
+	//TextBox* endMessage = new TextBox(100, 100, "Objects destroyed: " + m_player->getScore(), 200);
+	
 	system("pause");
 }
 
