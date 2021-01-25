@@ -120,6 +120,7 @@ void Game::draw()
 	for (int i = 0; i < m_sceneCount; i++)
 		m_scenes[i]->draw();
 
+	DrawText((char*)(m_player->getScore()), 10, 10, 20, BLUE);
 	EndMode2D();
 	EndDrawing();
 }
