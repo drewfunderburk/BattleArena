@@ -17,15 +17,25 @@ Button::~Button()
 	delete m_text;
 }
 
+void Button::start()
+{
+	Actor::start();
+	m_lastTime = RAYLIB_H::GetTime();
+}
+
 void Button::update(float deltaTime)
 {
-	if (m_sceneIndex == -1)
+	if (RAYLIB_H::GetTime() > m_lastTime + 1.0)
 	{
-		Game::setGameOver(true);
-		return;
+		if (RAYLIB_H::GetKeyPressed())
+		{
+			m_lastTime = RAYLIB_H::GetTime();
+			if (m_sceneIndex == -1)
+				Game::setGameOver(true);
+			else
+				Game::setCurrentScene(m_sceneIndex);
+		}
 	}
-	if (RAYLIB_H::GetKeyPressed())
-		Game::setCurrentScene(m_sceneIndex);
 }
 
 void Button::draw()

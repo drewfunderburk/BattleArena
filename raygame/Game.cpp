@@ -142,8 +142,8 @@ void Game::draw()
 	if (getCurrentSceneIndex() > 0)
 	{
 		char scoreString[128];
-		sprintf_s(scoreString, "%d", m_player->getScore());
-		DrawText(scoreString, 10, 10, 20, BLUE);
+		sprintf_s(scoreString, "Score: %d", m_player->getScore());
+		DrawText(scoreString, 10, 10, 30, BLUE);
 	}
 
 	EndMode2D();
@@ -152,9 +152,7 @@ void Game::draw()
 
 void Game::end()
 {
-	system("cls");
-	std::cout << "You destroyed " << m_player->getScore() << " objects!" << std::endl;
-	system("pause");
+
 }
 
 MathLibrary::Matrix3* Game::getWorld()
