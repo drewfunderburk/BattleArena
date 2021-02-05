@@ -13,6 +13,11 @@ void Player::fire()
 	}
 }
 
+Player::~Player()
+{
+	delete m_shieldSprite;
+}
+
 
 Player::Player(float x, float y, float rotation) : SpaceActor(x, y, 50, "Images/Player.png", 10, 100, 1)
 {

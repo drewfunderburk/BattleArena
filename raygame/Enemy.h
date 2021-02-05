@@ -28,11 +28,6 @@ public:
     void setTarget(Actor* target) { m_target = target; }
     void setMaxSpeed(float speed) { m_maxSpeed = speed; }
 
-private:
-    /// <summary>
-    /// Calculates the score the Player would get if this Enemy is destroyed
-    /// </summary>
-    void calcScore();
 
 private:
     int m_scoreValue = 1;
