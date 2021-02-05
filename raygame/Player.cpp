@@ -3,6 +3,7 @@
 #include <cmath>
 #include <iostream>
 
+
 void Player::fire()
 {
 	if (RAYLIB_H::GetTime() > (double)m_lastFireTime + (double)m_fireDelay)
