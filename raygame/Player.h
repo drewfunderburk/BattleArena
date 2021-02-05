@@ -15,6 +15,7 @@ private:
 	void fire();
 
 public:
+	~Player();
 	/// <param name="position">Position</param>
 	/// <param name="rotation">Rotation</param>
 	Player(MathLibrary::Vector2 position, float rotation);
