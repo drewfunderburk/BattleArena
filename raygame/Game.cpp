@@ -120,6 +120,12 @@ void Game::draw()
 	for (int i = 0; i < m_sceneCount; i++)
 		m_scenes[i]->draw();
 
+	if (getCurrentSceneIndex() > 0)
+	{
+		char scoreString[128];
+		sprintf_s(scoreString, "Score: %d", m_player->getScore());
+		DrawText(scoreString, 10, 10, 30, BLUE);
+	}
 
 	char scoreString[128];
 	sprintf_s(scoreString, "%d", m_player->getScore());
